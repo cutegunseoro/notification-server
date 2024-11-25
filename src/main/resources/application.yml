@@ -1,0 +1,32 @@
+spring:
+  application.name: notification-server
+  datasource:
+    hikari: # hikariCP https://github.com/brettwooldridge/HikariCP
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      jdbc-url: jdbc:mysql://${DB_HOST}:${DB_PORT}/${DB_DATABASE_NAME}?serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true
+      username: ${DB_USERNAME}
+      password: ${DB_PASSWORD}
+      pool-name: hikari-pool
+      maximum-pool-size: 50
+      minimum-idle: 50
+      connection-timeout: 5000
+      connection-init-sql: SELECT 1
+      idle-timeout: 600000
+      max-lifetime: 1800000
+      auto-commit: true
+
+# MyBatis
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.ssafy.travlog.api.model
+  configuration:
+    map-underscore-to-camel-case: true
+
+# notification
+notification:
+  max-push-subscription-per-member: 3
+
+# logging
+logging:
+  level:
+    com.ssafy.travlog: debug
